@@ -1,0 +1,25 @@
+{
+  "name": "openclaw-cliq",
+  "version": "0.1.0",
+  "description": "Zoho Cliq channel plugin for OpenClaw",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": ["openclaw", "zoho", "cliq", "chatbot", "channel"],
+  "author": "Internet Business Solutions",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "express": "^4.18.0"
+  },
+  "peerDependencies": {
+    "openclaw": ">=0.1.0"
+  }
+}
