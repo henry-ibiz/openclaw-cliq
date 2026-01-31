@@ -6,6 +6,7 @@
 
 export { CliqChannel, default } from './cliq-channel';
 export * from './types';
+export * from './config-loader';
 
 // Express webhook handler factory
 import express, { Request, Response, Router } from 'express';

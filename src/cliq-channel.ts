@@ -11,16 +11,29 @@ import {
   CliqMessagePayload,
   CliqSendMessageRequest,
 } from './types';
+import { getFreshToken } from './config-loader';
 
 const DEFAULT_API_BASE = 'https://cliq.zoho.com';
 
 export class CliqChannel {
   private config: CliqChannelConfig;
   private apiBase: string;
+  private configPath?: string;
 
-  constructor(config: CliqChannelConfig) {
+  constructor(config: CliqChannelConfig, configPath?: string) {
     this.config = config;
     this.apiBase = config.apiBaseUrl || DEFAULT_API_BASE;
+    this.configPath = configPath;
+  }
+
+  /**
+   * Get current token (re-reads from config if configPath set for fresh tokens)
+   */
+  private getToken(): string {
+    if (this.configPath) {
+      return getFreshToken(this.configPath);
+    }
+    return this.config.apiToken;
   }
 
   /**
@@ -80,7 +93,7 @@ export class CliqChannel {
       const response = await fetch(url, {
         method: 'POST',
         headers: {
-          'Authorization': `Zoho-oauthtoken ${this.config.apiToken}`,
+          'Authorization': `Zoho-oauthtoken ${this.getToken()}`,
           'Content-Type': 'application/json',
           'orgId': this.config.orgId,
         },
@@ -110,7 +123,7 @@ export class CliqChannel {
       const response = await fetch(url, {
         method: 'POST',
         headers: {
-          'Authorization': `Zoho-oauthtoken ${this.config.apiToken}`,
+          'Authorization': `Zoho-oauthtoken ${this.getToken()}`,
           'Content-Type': 'application/json',
           'orgId': this.config.orgId,
         },
@@ -140,7 +153,7 @@ export class CliqChannel {
       const response = await fetch(url, {
         method: 'POST',
         headers: {
-          'Authorization': `Zoho-oauthtoken ${this.config.apiToken}`,
+          'Authorization': `Zoho-oauthtoken ${this.getToken()}`,
           'Content-Type': 'application/json',
           'orgId': this.config.orgId,
         },
